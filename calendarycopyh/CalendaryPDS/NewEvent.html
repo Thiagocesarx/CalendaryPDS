@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CalendaryPDS/style2.css">
+    <script src="/CalendaryPDS/function2.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<form>
+		<label for="nome-evento">Nome do evento:</label>
+		<input type="text" id="nome-evento" name="nome-evento"><br>
+
+		<label for="data-hora">Data e hora:</label>
+		<input type="datetime-local" id="data-hora" name="data-hora"><br>
+
+		<label for="carga-horaria">Carga horária:</label>
+		<input type="text" id="carga-horaria" name="carga-horaria"placeholder =  "ex: 2 horas"><br>
+
+		<label for="descricao">Descrição:</label>
+		<textarea id="descricao" name="descricao"></textarea><br>
+
+        <label for="cep">CEP:</label>
+      <input type="text" id="cep" name="cep" placeholder =  "xxxxx-xxx"  /><br />
+
+      <label for="logradouro">Logradouro:</label>
+      <input type="text" id="logradouro" name="logradouro" /><br />
+
+      <label for="numero">Número:</label>
+      <input type="text" id="numero" name="numero" /><br />
+
+      <label for="complemento">Complemento:</label>
+      <input type="text" id="complemento" name="complemento" /><br />
+
+      <label for="bairro">Bairro:</label>
+      <input type="text" id="bairro" name="bairro" /><br />
+
+      <label for="cidade">Cidade:</label>
+      <input type="text" id="cidade" name="cidade" /><br />
+
+      <label for="uf">UF:</label>
+      <input type="text" id="uf" name="uf" /><br />
+
+      <input type="submit" value="Enviar" />
+    </form>
+
+		<input type="submit" value="Enviar">
+	</form>
+    <script>
+        const inputCep = document.getElementById("cep");
+        const inputLogradouro = document.getElementById("logradouro");
+        const inputNumero = document.getElementById("numero");
+        const inputComplemento = document.getElementById("complemento");
+        const inputBairro = document.getElementById("bairro");
+        const inputCidade = document.getElementById("cidade");
+        const inputUf = document.getElementById("uf");
+  
+        inputCep.addEventListener("blur", () => {
+          const cep = inputCep.value.replace("-", "");
+          const url = `https://viacep.com.br/ws/${cep}/json/`;
+  
+          fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+              inputLogradouro.value = data.logradouro;
+              inputComplemento.value = data.complemento;
+              inputBairro.value = data.bairro;
+              inputCidade.value = data.localidade;
+              inputUf.value = data.uf;
+              inputNumero.focus();
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+      </script>
+
+
+<script> const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+    
+      event.preventDefault();
+      const mensagem = document.querySelector('#mensagem');
+      mensagem.innerHTML = 'Evento marcado com sucesso!';
+    });</script>
+</body>
+</html>
